@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Image Preview with jQuery</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    #preview img {
+      max-width: 300px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Select an Image</h2>
+  <input type="file" id="imageInput" accept="image/*">
+  <div id="preview"></div>
+
+  <script>
+    $('#imageInput').on('change', function() {
+      const file = this.files[0];
+      if (file && file.type.startsWith('image/')) {
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+          $('#preview').html(`<img src="${e.target.result}" alt="Image preview">`);
+        };
+
+        reader.readAsDataURL(file);
+      } else {
+        alert('Please select a valid image file.');
+      }
+    });
+  </script>
+</body>
+</html>
